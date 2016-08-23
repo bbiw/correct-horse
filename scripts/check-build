@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+python3 setup.py sdist
+rm -r tmp
+mkdir -pv tmp
+cd tmp
+tar xvaf ../dist/*.tar.gz
+cat */PKG-INFO
