@@ -1,1 +1,4 @@
 include correcthorse/wordlists/*
+include description.rst
+include README.md
+include License
