@@ -11,6 +11,7 @@ def runcmd(*args):
 
 def runscript(run,*script):
 	for cmd in script:
+		click.echo(cmd)
 		retcode = run(cmd)
 		if retcode != 0:
 			sys.exit(retcode)
@@ -74,8 +75,8 @@ def main(dryrun,version):
 
 	runscript(run,
 		["git","add", "VERSION"],
-		["git","commit", '-mbump version number'],
-		["git","tag", "-av"+version, "-mv"+version],
+		["git","commit", '-m','bump version number'],
+		["git","tag", '-a', 'v'+version, '-m', 'v'+version],
 		["git","push","origin"],
 		["git","push","origin","--tags"],
 		[sys.executable,"setup.py","sdist","upload"],
