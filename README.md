@@ -8,18 +8,18 @@ your system has a good random number generator, this should be a reasonably secu
 password, and also reasonably easy to memorize.
 
 see also:
-* http://world.std.com/~reinhold/diceware.html
-* https://www.rempe.us/diceware/#diceware
-* https://xkcd.com/936/
-* https://github.com/bbiw/mempass
-
+  * http://world.std.com/~reinhold/diceware.html
+  * https://www.rempe.us/diceware/#diceware
+  * https://xkcd.com/936/
+  * https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+  * https://github.com/bbiw/mempass
 
 ## install
 
     $ pip3 install correct-horse
 
 
-## usage
+## Command line usage
 
     $ chbs --help
     Usage: chbs [OPTIONS]
@@ -37,3 +37,31 @@ see also:
 
      $ chbs -b64 -c1 -j-
      yon-30-zg-200-debut
+
+
+## API
+
+The simple, high-level, API to generate passwords:
+
+    >>> import correcthorse
+    >>> wl = correcthorse.getwords(('effs1',))
+    >>> correcthorse.random_passphrase(wl)
+    ('mouth ahead ice open item duty frame navy early', 93.05865002596161)
+    >>> correcthorse.random_passphrase(wl,64)
+    ('rope chess race half dawn owl repay', 72.37895002019238)
+    >>> correcthorse.random_passphrase(wl,128,'-')
+    ('habit-vapor-darn-scarf-wilt-boney-lemon-ajar-flap-whoop-fresh-polar-trial', 134.4180500375001)
+
+Note that the entropy estimate is only an estimate. The actual entropy will be
+closer to, but always at least `bits`.
+
+If you want to dig deeper:
+
+    >>> bn = correcthorse.bignumber(24)
+    >>> bn.bit_length()
+    192
+    >>> sep = correcthorse.getwords(('special',))
+    >>> ''.join(correcthorse.genpass(bn,wl,sep))
+    'gulf"eats9oat!spoke9thong%disco.puma}dot+fancy(swept)evil^amino_salsa'
+
+But that is probably overkill, and makes it a lot harder to memorize and type.
