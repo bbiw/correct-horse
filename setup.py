@@ -6,7 +6,7 @@ def slurp(fname):
 
 setup(
     name='correct-horse',
-    version='0.1.6',
+    version=slurp("VERSION").strip(),
     description='Print strong, memorable passphrases',
     url='https://github.com/bbiw/correct-horse',
     author='Terrel Shumway',
