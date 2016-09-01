@@ -75,7 +75,7 @@ def main(dryrun,version):
 
 	runscript(run,
 		["git","add", "VERSION"],
-		["git","commit", '-m','bump version number'],
+		["git","commit", '-m','bump version number: v'+version],
 		["git","tag", '-a', 'v'+version, '-m', 'v'+version],
 		["git","push","origin"],
 		["git","push","origin","--tags"],
