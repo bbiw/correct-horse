@@ -9,6 +9,39 @@ def runcmd(*args):
 	print(*args)
 	return 0
 
+def runscript(run,*script):
+	for cmd in script:
+		retcode = run(cmd)
+		if retcode != 0:
+			sys.exit(retcode)
+
+def parseversion(version):
+	if version.startswith('v'):
+		version = version[1:]
+	verparts = [int(x) for x in version.split('.')]
+	return verparts
+
+def checkVersion(old,new):
+	ovp = parseversion(old)
+	nvp = parseversion(new)
+	if ovp[0] > nvp[0]:
+		return "version must increase"
+	elif ovp[0]==nvp[0]:
+		if ovp[1]>nvp[1]:
+			return "version must increase"
+		elif ovp[1]==nvp[1]:
+			if ovp[2]>nvp[2]:
+				return "version must increase"
+			return
+		else:
+			if nvp[2]>0:
+				return "patch level must be zero if minor version increases"
+	else:
+		if nvp[1]>0:
+			return "minor version must be zero if major version increases"
+
+
+
 @click.command()
 @click.option('--dryrun','-n',is_flag=True,default=False) #,help='the name of the release')
 @click.argument('version',default="") #,help='the name of the release')
@@ -28,19 +61,25 @@ def main(dryrun,version):
 		sys.exit(2)
 
 	# XXX check that the new version number is kosher
+	msg = checkVersion(oldv,version)
+	if msg:
+		click.echo(msg)
+		sys.exit(3)
 
-	retcode = run(["git","tag", "-a",version, "-m", version])
-	if retcode != 0:
-		sys.exit(retcode)
-	with open("VERSION","wt") as fo:
-		fo.write(version)
-	retcode = run(["git","push","origin","--tags"])
-	if retcode != 0:
-		sys.exit(retcode)
+	if dryrun:
+		click.echo(["echo", '-n', version, '>VERSION'])
+	else:
+		with open("VERSION","wt") as fo:
+			fo.write(version)
 
-	retcode = run([sys.executable,"setup.py","sdist","upload"])
-	if retcode != 0:
-		sys.exit(retcode)
+	runscript(run,
+		["git","add", "VERSION"],
+		["git","commit", '-mbump version number'],
+		["git","tag", "-av"+version, "-mv"+version],
+		["git","push","origin"],
+		["git","push","origin","--tags"],
+		[sys.executable,"setup.py","sdist","upload"],
+	)
 
 if __name__=='__main__':
 	main()
