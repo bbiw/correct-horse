@@ -5,10 +5,9 @@ import pkg_resources
 import click
 
 
-
 def slurp(fname):
     """read the contents of a file into a list of lines"""
-    with open(fname, "rt") as fi:
+    with open(fname, 'rt') as fi:
         return fi.read().splitlines()
 
 
@@ -40,7 +39,7 @@ def getwords(wordlists):
         rp = 'wordlists/' + wl
         if pkg_resources.resource_exists(__name__, rp):
             words.extend(pkg_resources.resource_string(
-                __name__, rp).decode("utf-8").splitlines())
+                __name__, rp).decode('utf-8').splitlines())
             continue
         click.echo('cannot find word list "{}"'.format(wl))
     return list(set(words))
@@ -65,20 +64,22 @@ def random_passphrase(words, bits=90, join=' '):
         bitsleft -= bitsperword
     return join.join(ww), bitsperword * len(ww)
 
+
 def show_wordlists():
-    click.echo("builtin word lists:")
-    choices = [ res for res in pkg_resources.resource_listdir(__name__, "wordlists") if '.' not in res]
+    click.echo('builtin word lists:')
+    choices = [res for res in pkg_resources.resource_listdir(
+        __name__, 'wordlists') if '.' not in res]
     click.echo(' '.join(sorted(choices)))
 
 
 @click.command()
-@click.option('--lists','-l',is_flag=True,help='display available builtin wordlists')
+@click.option('--lists', '-l', is_flag=True, help='display available builtin wordlists')
 @click.option('--wordlist', '-w', default=['effs1'], multiple=True, help='list of words to choose from (default=effs1)')
 @click.option('--count', '-c', type=int, default=8, help='number of passphrases (default=8)')
 @click.option('--bits', '-b', type=int, default=90, help='minimum bits of entropy per passphrase (default=90)')
 @click.option('--join', '-j', default=' ', help='join words with this character (default=space)')
 @click.option('--verbose/--quiet', '-v', default=False, help='print extra stuff to stderr (default=quiet)')
-def cli(lists,wordlist, count, bits, join, verbose):
+def cli(lists, wordlist, count, bits, join, verbose):
     """print strong random passphrases (e.g.'correct horse battery staple')"""
     if lists:
         show_wordlists()
@@ -87,8 +88,9 @@ def cli(lists,wordlist, count, bits, join, verbose):
         sys.stderr.write('wordlists: {} count: {} bits: {}\n'.format(
             wordlist, count, bits))
     words = getwords(wordlist)
-    if len(words)<8:
-        click.echo("We seem to be missing some words. Did you spell the filename right?\n{}".format(wordlist))
+    if len(words) < 8:
+        click.echo(
+            'We seem to be missing some words. Did you spell the filename right?\n{}'.format(wordlist))
         show_wordlists()
         sys.exit(100)
     for i in range(count):

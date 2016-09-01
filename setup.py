@@ -1,16 +1,17 @@
 from setuptools import setup, find_packages
 
+
 def slurp(fname):
-    with open(fname,"rt") as fi:
+    with open(fname, 'rt') as fi:
         return fi.read()
 
 setup(
     name='correct-horse',
-    version=slurp("VERSION").strip(),
+    version=slurp('VERSION').strip(),
     description='Print strong, memorable passphrases',
     url='https://github.com/bbiw/correct-horse',
     author='Terrel Shumway',
-    long_description=slurp("description.rst"),
+    long_description=slurp('description.rst'),
     classifiers=[
         'Environment :: Console',
         'Development Status :: 3 - Alpha',
