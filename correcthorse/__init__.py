@@ -73,7 +73,7 @@ def show_wordlists():
 
 @click.command()
 @click.option('--lists','-l',is_flag=True,help='display available builtin wordlists')
-@click.option('--wordlist', '-w', default=['default'], multiple=True, help='list of words to choose from (default=diceware)')
+@click.option('--wordlist', '-w', default=['effs1'], multiple=True, help='list of words to choose from (default=effs1)')
 @click.option('--count', '-c', type=int, default=8, help='number of passphrases (default=8)')
 @click.option('--bits', '-b', type=int, default=90, help='minimum bits of entropy per passphrase (default=90)')
 @click.option('--join', '-j', default=' ', help='join words with this character (default=space)')
