@@ -1,0 +1,31 @@
+an automatic password formatter.
+
+This program does not actually generate passwords, but formats a random password in a way that it is easier for humans to remember it.
+
+
+genpass [-b bytes] [-s source] [-w wordlist] [-a alphabet] [hex|b32|b64|b95|word]*
+
+read `bytes` bytes (default=16) from `source` (default=/dev/urandom)
+
+print the read password in each format specified 
+if none is specified, *all* will be used
+
+`wordlist` is a file containing unique words separated by '\n'. 
+Each word is considered a 'digit' in a base N representation of the password, where N is the number of words in the file.
+`alphabet` is a set of unique characters
+
+if -a or -w are specified, the default set of formats is not used.
+
+
+hex alphabet: 0123456789abcdef
+b32 alphabet: 0123456789abcdefghijklmnopqrstu
+b64 alphabet: 0123456789abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYz-.
+b95 alphabet: ascii characters from 32 to 126 inclusive
+word 'alphabet': an expanded "diceware" word list with 16384 words. 
+	This allows a 128-bit password to be represented as 9 short words (3 groups of three)
+
+note that the bN formats are not in general reversible, because they do not add padding characters
+
+
+
+
