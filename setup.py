@@ -30,6 +30,9 @@ setup(
     license='MIT',
     packages=find_packages(),
     include_package_data=True,
+    setup_requires=[
+        'setuptools_git >= 0.3',
+    ],
     install_requires=[
         'Click',
     ],

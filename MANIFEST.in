@@ -1,5 +1,0 @@
-include correcthorse/wordlists/*
-include description.rst
-include README.md
-include LICENSE
-include VERSION
