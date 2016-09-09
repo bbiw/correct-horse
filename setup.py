@@ -35,6 +35,7 @@ setup(
     ],
     install_requires=[
         'Click',
+        'flufl.i18n',
     ],
     entry_points='''
         [console_scripts]

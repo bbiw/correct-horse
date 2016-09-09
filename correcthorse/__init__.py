@@ -3,6 +3,7 @@ import sys
 import math
 import pkg_resources
 import click
+from correcthorse.messages import _
 
 
 def slurp(fname):
@@ -66,35 +67,35 @@ def random_passphrase(words, bits=90, join=' '):
 
 
 def show_wordlists():
-    click.echo('builtin word lists:')
+    click.echo(_('builtin word lists:'))
     choices = [res for res in pkg_resources.resource_listdir(
         __name__, 'wordlists') if '.' not in res]
     click.echo(' '.join(sorted(choices)))
 
 
 @click.command()
-@click.option('--lists', '-l', is_flag=True, help='display available builtin wordlists')
-@click.option('--wordlist', '-w', default=['effs1'], multiple=True, help='list of words to choose from (default=effs1)')
-@click.option('--count', '-c', type=int, default=8, help='number of passphrases (default=8)')
-@click.option('--bits', '-b', type=int, default=90, help='minimum bits of entropy per passphrase (default=90)')
-@click.option('--join', '-j', default=' ', help='join words with this character (default=space)')
-@click.option('--verbose/--quiet', '-v', default=False, help='print extra stuff to stderr (default=quiet)')
+@click.option('--lists', '-l', is_flag=True, help=_('display available builtin wordlists'))
+@click.option('--wordlist', '-w', default=['effs1'], multiple=True, help=_('list of words to choose from (default=effs1)'))
+@click.option('--count', '-c', type=int, default=8, help=_('number of passphrases (default=8)'))
+@click.option('--bits', '-b', type=int, default=90, help=_('minimum bits of entropy per passphrase (default=90)'))
+@click.option('--join', '-j', default=' ', help=_('join words with this character (default=space)'))
+@click.option('--verbose/--quiet', '-v', default=False, help=_('print extra stuff to stderr (default=quiet)'))
 def cli(lists, wordlist, count, bits, join, verbose):
     """print strong random passphrases (e.g.'correct horse battery staple')"""
     if lists:
         show_wordlists()
         sys.exit(1)
     if verbose:
-        sys.stderr.write('wordlists: {} count: {} bits: {}\n'.format(
+        sys.stderr.write(_('wordlists: {} count: {} bits: {}\n').format(
             wordlist, count, bits))
     words = getwords(wordlist)
     if len(words) < 8:
         click.echo(
-            'We seem to be missing some words. Did you spell the filename right?\n{}'.format(wordlist))
+            _('We seem to be missing some words. Did you spell the filename right?\n{})'.format(wordlist))
         show_wordlists()
         sys.exit(100)
     for i in range(count):
         w, b = random_passphrase(words, bits, join)
         if verbose:
-            sys.stderr.write('{} bits\n'.format(b))
+            sys.stderr.write(_('{} bits\n').format(b))
         print(w)
