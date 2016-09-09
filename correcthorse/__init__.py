@@ -91,7 +91,7 @@ def cli(lists, wordlist, count, bits, join, verbose):
     words = getwords(wordlist)
     if len(words) < 8:
         click.echo(
-            _('We seem to be missing some words. Did you spell the filename right?\n{})'.format(wordlist))
+            _('We seem to be missing some words. Did you spell the filename right?\n{}').format(wordlist))
         show_wordlists()
         sys.exit(100)
     for i in range(count):
