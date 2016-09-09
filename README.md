@@ -14,6 +14,10 @@ see also:
   * https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
   * https://github.com/bbiw/mempass
 
+## Help Wanted
+
+This project is set up to localize its output. Translations are welcome.
+
 ## install
 
     $ pip3 install correct-horse

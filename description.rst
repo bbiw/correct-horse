@@ -8,7 +8,13 @@ your system has a good random number generator, this should be a reasonably secu
 password, and also reasonably easy to memorize.
 
 see also:
-* http://world.std.com/~reinhold/diceware.html
-* https://www.rempe.us/diceware/#diceware
-* https://xkcd.com/936/
-* https://github.com/bbiw/mempass
+
+ * http://world.std.com/~reinhold/diceware.html
+ * https://www.rempe.us/diceware/
+ * https://xkcd.com/936/
+ * https://github.com/bbiw/mempass
+
+The Portuguese translation is mostly from translate.google.com.
+Estou certo que se pode melhorar.
+
+Additional translations are welcome.
