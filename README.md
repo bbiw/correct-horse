@@ -9,7 +9,7 @@ password, and also reasonably easy to memorize.
 
 see also:
   * http://world.std.com/~reinhold/diceware.html
-  * https://www.rempe.us/diceware/#diceware
+  * https://www.rempe.us/diceware/
   * https://xkcd.com/936/
   * https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
   * https://github.com/bbiw/mempass
